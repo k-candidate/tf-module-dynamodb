@@ -41,3 +41,57 @@ resource "aws_dynamodb_table" "dynamodb-table" {
   }
 
 }
+
+# Lambda script
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_file = "inserter.py"
+  output_path = "lambda_function_payload.zip"
+}
+
+# Lambda
+resource "aws_lambda_function" "insert-into-dynamodb" {
+  filename      = "inserter.py"
+  function_name = "tf-insert-into-dynamodb"
+  runtime       = "python3.11"
+  role          = aws_iam_role.iam_for_lambda_tf.arn
+}
+
+resource "aws_iam_role" "iam_for_lambda_tf" {
+  name = "iam_for_lambda_tf"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "*:*",
+      "Principal": {
+        "Service": "*"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+# SSM with table name. Used by the py script
+resource "aws_ssm_parameter" "foo" {
+  name  = "/dev/table_name"
+  type  = "String"
+  value = var.table_name
+}
+
+# SQS trigger for the lambda
+resource "aws_sqs_queue" "dev-sqs" {
+  name = "dev-sqs"
+}
+
+# Lambda SQS trigger
+resource "aws_lambda_event_source_mapping" "lambda_sqs_trigger" {
+  event_source_arn = aws_sqs_queue.dev-sqs.arn
+  function_name    = aws_lambda_function.insert-into-dynamodb.arn
+  depends_on       = [aws_sqs_queue.dev-sqs]
+}
