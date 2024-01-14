@@ -41,3 +41,4 @@ variable "range_key_type" {
   type    = string
   default = "S"
 }
+
