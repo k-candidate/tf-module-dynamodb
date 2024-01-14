@@ -11,4 +11,5 @@ parameter = ssm.get_parameter(Name='/dev/table_name')
 print(parameter['Parameter']['Value'])
 print(event['Records']["body"])
 
-dynamodb.put_item(TableName=parameter['Parameter']['Value'], Item=event['Records']["body"])
+def insert_data(event, context):
+    dynamodb.put_item(TableName=parameter['Parameter']['Value'], Item=event['Records']["body"])

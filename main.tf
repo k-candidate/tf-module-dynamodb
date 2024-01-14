@@ -55,6 +55,7 @@ resource "aws_lambda_function" "insert-into-dynamodb" {
   function_name = "tf-insert-into-dynamodb"
   runtime       = "python3.11"
   role          = aws_iam_role.iam_for_lambda_tf.arn
+  handler       = "inserter.insert_data"
 }
 
 resource "aws_iam_role" "iam_for_lambda_tf" {
