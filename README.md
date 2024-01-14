@@ -2,7 +2,7 @@
 
 ![Flow chart of how this works](/docs/assets/images/db.jpg)
 
-- This has been made using localstack.
+- This has been made locally using localstack.
 - To deploy, you can use a file `main.tf` with the following content:
 ```
 module "tf-module-dynamodb" {
@@ -14,6 +14,13 @@ module "tf-module-dynamodb" {
   alias         = "mykey"
 }
 ```
+- A GHA has been put in place to generate the docs for tf below.
+
+
+## This a simple PoC. Possible improvements:
+- [ ] If we are given data with defined schema, Aurora Serverless v2 would be the go-to solution, but it is not available in the community version of localstack. However DynamoDB is.
+- [ ] Locally, use `tfsec` to scan the tf code before making the commit. Or put it in the CD flow (possible to soft or hard fail)
+- [ ] Have a S3 bucket as backend to store the tf state.
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
