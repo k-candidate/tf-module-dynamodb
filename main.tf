@@ -13,7 +13,7 @@ resource "aws_dynamodb_table" "dynamodb-table" {
 
   attribute {
     name = var.range_key
-    type = va.range_key_type
+    type = var.range_key_type
   }
 
   ttl {
