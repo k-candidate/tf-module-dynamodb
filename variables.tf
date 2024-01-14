@@ -9,8 +9,7 @@ variable "alias" {
 }
 
 variable "table_name" {
-  type    = string
-  default = "test-table"
+  type = string
 }
 
 variable "read_capacity" {
