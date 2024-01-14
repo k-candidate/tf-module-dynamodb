@@ -51,7 +51,7 @@ data "archive_file" "lambda" {
 
 # Lambda
 resource "aws_lambda_function" "insert-into-dynamodb" {
-  filename      = "inserter.py"
+  filename      = "lambda_function_payload.zip"
   function_name = "tf-insert-into-dynamodb"
   runtime       = "python3.11"
   role          = aws_iam_role.iam_for_lambda_tf.arn
