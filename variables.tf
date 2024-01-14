@@ -1,3 +1,13 @@
+variable "key_spec" {
+  type    = string
+  default = "SYMMETRIC_DEFAULT"
+}
+
+variable "alias" {
+  type    = string
+  default = "tf-cmk"
+}
+
 variable "table_name" {
   type    = string
   default = "test-table"
