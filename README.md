@@ -1,3 +1,20 @@
+# tf-module-dynamodb
+
+![Flow chart of how this works](/docs/assets/images/db.jpg)
+
+- This has been made using localstack.
+- To deploy, you can use a file `main.tf` with the following content:
+```
+module "tf-module-dynamodb" {
+  source        = "git@github.com:k-candidate/tf-module-dynamodb.git"
+  table_name    = "tf-test"
+  hash_key      = "id"
+  hash_key_type = "N"
+  range_key     = "name"
+  alias         = "mykey"
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
