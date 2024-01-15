@@ -13,7 +13,7 @@ print(parameter)
 def insert_data(event, context):
     for record in event['Records']:
         try:
-            print("test")
+            print("Testing print from inside handler...")
             payload = record["body"]
             print(str(payload))
             dynamodb.put_item(TableName=parameter, Item=payload)
