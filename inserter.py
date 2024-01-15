@@ -9,7 +9,10 @@ ssm = boto3.client('ssm')
 parameter = ssm.get_parameter(Name='/dev/table_name')
 
 print(parameter['Parameter']['Value'])
-print(event['Records']["body"])
 
 def insert_data(event, context):
-    dynamodb.put_item(TableName=parameter['Parameter']['Value'], Item=event['Records']["body"])
+    for record in event['Records']:
+        print("test")
+        payload = record["body"]
+        print(str(payload))
+        dynamodb.put_item(TableName=parameter['Parameter']['Value'], Item=payload)
