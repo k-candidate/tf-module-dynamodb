@@ -19,7 +19,7 @@ module "tf-module-dynamodb" {
 
 ### This a simple PoC. Possible improvements:
 - [ ] If we are given data with defined schema, Aurora Serverless v2 would be the go-to solution, but it is not available in the community version of localstack. However DynamoDB is.
-- [ ] Locally, use `tfsec` to scan the tf code before making the commit. Or put it in the CD flow (possible to soft or hard fail)
+- [x] Locally, use `tfsec` to scan the tf code before making the commit. Or put it in the CD flow (possible to soft or hard fail). **DONE**: Added GitHub Action that will comment inside PRs using tfsec's output.
 - [ ] Have a S3 bucket as backend to store the tf state.
 
 <!-- BEGIN_TF_DOCS -->
